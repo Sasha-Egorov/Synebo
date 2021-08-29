@@ -23,8 +23,6 @@ public with sharing class ProjectTriggerHandlerTest {
                 Status__c = 'To Do'
         );
         insert testIssue;
-
-
     }
 
 
@@ -42,12 +40,13 @@ public with sharing class ProjectTriggerHandlerTest {
 
         Issue__c issueTest = [SELECT Id, Status__c FROM Issue__c WHERE Project__c = :testProject.id LIMIT 1];
         issueTest.Status__c = 'Done';
+        update issueTest;
 
         // when & then
         try {
             delete testProject;
         } catch (Exception ex) {
-            System.assert(true, 'Exception was not expected');
+            System.assert(false, 'Exception was not expected');
         }
     }
 
@@ -67,13 +66,14 @@ public with sharing class ProjectTriggerHandlerTest {
 
         Issue__c issueTest = [SELECT Id, Status__c FROM Issue__c WHERE Project__c = :testProject.id LIMIT 1];
         issueTest.Status__c = 'Done';
+        update issueTest;
 
         // when & then
         try {
             testProject.Status__c = 'Closed';
             update testProject;
         } catch (Exception ex) {
-            System.assert(true, 'Exception was not expected');
+            System.assert(false, 'Exception was not expected');
         }
 
     }
