@@ -83,7 +83,7 @@ public with sharing class ProjectTriggerHandlerTest {
     static void sendEmailTest() {
 
         Project__c testProject = [SELECT Id, Name FROM Project__c WHERE Name = 'Test Project' LIMIT 1];
-
+        test.startTest();
         testProject.Status__c = 'New';
         update testProject;
 
@@ -95,6 +95,7 @@ public with sharing class ProjectTriggerHandlerTest {
 
         invocations = Limits.getEmailInvocations();
         System.assertEquals(1, invocations, 'An email should be sent');
+        test.stopTest();
 
     }
 
