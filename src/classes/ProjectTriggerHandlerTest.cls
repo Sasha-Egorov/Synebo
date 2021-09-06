@@ -35,7 +35,7 @@ public with sharing class ProjectTriggerHandlerTest {
         try {
             delete testProject;
         } catch (Exception ex) {
-            System.assert(ex.getMessage().contains('You are not allowed to close or delete Project if at least one Issue is still open.'));
+            System.assert(ex.getMessage().contains(Label.IssueStillOpen));
         }
 
         Issue__c issueTest = [SELECT Id, Status__c FROM Issue__c WHERE Project__c = :testProject.id LIMIT 1];
@@ -61,7 +61,7 @@ public with sharing class ProjectTriggerHandlerTest {
             testProject.Status__c = 'Closed';
             update testProject;
         } catch (Exception ex) {
-            System.assert(ex.getMessage().contains('You are not allowed to close or delete Project if at least one Issue is still open.'));
+            System.assert(ex.getMessage().contains(Label.IssueStillOpen));
         }
 
         Issue__c issueTest = [SELECT Id, Status__c FROM Issue__c WHERE Project__c = :testProject.id LIMIT 1];
